@@ -9,6 +9,8 @@ RUN apt-get -qqqy install apt-utils software-properties-common dctrl-tools
 RUN add-apt-repository -y ppa:isc/bind
 RUN apt-get -qqqy update && apt-get -qqqy dist-upgrade && apt-get -qqqy install bind9 bind9-utils dnsutils tini
 
+RUN apt-get clean autoclean && apt-get autoremove -y && rm -rf /var/lib/{apt,dpkg,cache,log}/
+
 VOLUME ["/etc/bind", "/var/cache/bind", "/var/lib/bind", "/var/log"]
 
 RUN mkdir -p /etc/bind && chown root:bind /etc/bind/ && chmod 755 /etc/bind
